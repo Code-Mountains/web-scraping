@@ -1,3 +1,4 @@
+# PART 1 Login to ACloudGuru 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -8,7 +9,7 @@ import time
 browser = webdriver.Chrome()
 
 # Open the website
-browser.get('https://learn.acloud.guru')
+browser.get('https://learn.acloud.guru/cloud-playground/cloud-sandboxes')
 
 # Wait for the page to load
 time.sleep(3)
@@ -35,42 +36,50 @@ try:
 except TimeoutException:
     print("Login failed or timeout reached")
 
-# Continue with other actions or close the browser
-# ...
+
+# Wait for the page to load
+time.sleep(5)
+
+# Locate and click the 'Start AWS Sandbox' button
+# Here, we use the 'data-cy' attribute to find the button
+start_sandbox_button = WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.CSS_SELECTOR, "button[data-cy='button--start-sandbox']"))
+)
+start_sandbox_button.click()
+
+
+
+# _____________________________________________________________________________
+
+
+# PART 2 Start AWS Sandbox
+
+# Locate the input elements for the username and password
+credential_elements = wait.until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "input[aria-label='Copy to clipboard']")))
+
+# Extract the values
+# Assuming the first one is the username and the second is the password
+username = credential_elements[0].get_attribute('value')
+password = credential_elements[1].get_attribute('value')
+url = credential_elements[2].get_attribute('value')
+access_key_id = credential_elements[3].get_attribute('value')
+secret_access_key = credential_elements[4].get_attribute('value')
+
+# Print the credentials (for debugging purposes)
+print(f"Username: {username}")
+print(f"Password: {password}")
+print(f"URL: {url}")
+print(f"access_key_id: {access_key_id}")
+print(f"secret_access_key: {secret_access_key}")
+
+# Write the credentials to a file
+with open('credentials.txt', 'w') as file:
+    file.write(f"Username: {username}\n")
+    file.write(f"Password: {password}\n")
+    file.write(f"URL: {url}\n")
+    file.write(f"access_key_id: {access_key_id}\n")
+    file.write(f"secret_access_key: {secret_access_key}\n")
+
 
 # Close the browser after completing tasks
 browser.quit()
-
-
-
-
-# # Find and click the 'Start AWS Sandbox' button
-# # You need to replace the 'button_text' with the actual text or identifier of the button
-# aws_sandbox_button = browser.find_element(By.LINK_TEXT, 'Start AWS Sandbox')
-# aws_sandbox_button.click()
-
-# # Perform any additional actions or close the browser
-# # browser.quit()
-
-
-# # ... [previous login and button click code] ...
-
-# # Wait for the credentials to be displayed
-# wait = WebDriverWait(browser, 10)  # Wait for a maximum of 10 seconds
-
-# # Assuming each piece of data has an ID or unique selector
-# username = wait.until(EC.visibility_of_element_located((By.ID, 'username_id'))).text
-# password = wait.until(EC.visibility_of_element_located((By.ID, 'password_id'))).text
-# url = wait.until(EC.visibility_of_element_located((By.ID, 'url_id'))).text
-# access_key = wait.until(EC.visibility_of_element_located((By.ID, 'access_key_id'))).text
-# secret_key = wait.until(EC.visibility_of_element_located((By.ID, 'secret_key_id'))).text
-# shutdown_time = wait.until(EC.visibility_of_element_located((By.ID, 'shutdown_time_id'))).text
-
-# print(f"Username: {username}")
-# print(f"Password: {password}")
-# print(f"URL: {url}")
-# print(f"Access Key ID: {access_key}")
-# print(f"Secret Access Key: {secret_key}")
-# print(f"Auto Shutdown: {shutdown_time}")
-
-# # ... [rest of your code] ...

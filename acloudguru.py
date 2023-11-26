@@ -15,8 +15,12 @@ browser.get('https://learn.acloud.guru/cloud-playground/cloud-sandboxes')
 time.sleep(3)
 
 # Locate the email and password fields by their IDs
-email_field = browser.find_element(By.ID, '1-email')
-password_field = browser.find_element(By.ID, '1-password')
+email_field = WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.ID, '1-email'))
+)
+password_field = WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.ID, '1-password'))
+)
 
 # Input the email and password
 email_field.send_keys('info@everestelites.com')
@@ -40,6 +44,13 @@ except TimeoutException:
 # Wait for the page to load
 time.sleep(5)
 
+
+# _____________________________________________________________________________
+
+
+# PART 2 Start AWS Sandbox
+
+
 # Locate and click the 'Start AWS Sandbox' button
 # Here, we use the 'data-cy' attribute to find the button
 start_sandbox_button = WebDriverWait(browser, 10).until(
@@ -48,11 +59,9 @@ start_sandbox_button = WebDriverWait(browser, 10).until(
 start_sandbox_button.click()
 
 
+# Wait for the page to load
+time.sleep(3)
 
-# _____________________________________________________________________________
-
-
-# PART 2 Start AWS Sandbox
 
 # Locate the input elements for the username and password
 credential_elements = wait.until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "input[aria-label='Copy to clipboard']")))

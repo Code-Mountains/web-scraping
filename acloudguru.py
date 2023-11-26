@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 import time
+import os
 
 # Initialize the WebDriver (Using Chrome in this example)
 browser = webdriver.Chrome()
@@ -89,6 +90,34 @@ with open('credentials.txt', 'w') as file:
     file.write(f"URL: {url}\n")
     file.write(f"access_key_id: {access_key_id}\n")
     file.write(f"secret_access_key: {secret_access_key}\n")
+
+
+# _____________________________________________________________________________
+
+# PART 3 Update ~/.bashrc with AWS env vars 
+
+
+# Define the path to the .bashrc file
+bashrc_path = os.path.expanduser('/home/sysadmin/.bashrc')
+
+# Environment variable lines to add to .bashrc
+env_lines = [
+    f'export AWS_USERNAME="{username}"',
+    f'export AWS_PASSWORD="{password}"',
+    f'export AWS_URL="{url}"',
+    f'export AWS_ACCESS_KEY_ID="{access_key_id}"',
+    f'export AWS_SECRET_ACCESS_KEY="{secret_access_key}"'
+]
+
+# Append the lines to .bashrc
+with open(bashrc_path, 'a') as bashrc_file:
+    bashrc_file.write('\n# AWS Credentials set by script\n')
+    for line in env_lines:
+        bashrc_file.write(line + '\n')
+
+print("Environment variables added to .bashrc")
+
+
 
 # Close the browser after completing tasks
 browser.quit()

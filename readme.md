@@ -7,13 +7,23 @@ pip3 install selenium
 
 ```
 
-# Generate AWS Sandbox Credentials on ACloudGuru
+# Generate AWS Sandbox Credentials on ACloudGuru and save to .bashrc
 ```
 $ python3 acloudguru.py 
 Login successful
 Username: cloud_user
-Password: k4-YjGo^AhS_H0Y2h7o^
-URL: https://359213897458.signin.aws.amazon.com/console?region=us-east-1
-access_key_id: AKIAVHIWRC3ZFNJ34Z4F
-secret_access_key: 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
+Password: fLn^]1o(A39E5z)KmaIZ
+URL: https://611144235625.signin.aws.amazon.com/console?region=us-east-1
+access_key_id: AKIAY4SYI7JUX2KZPDMN
+secret_access_key: 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
+Environment variables added to .bashrc
+
+
+# AWS Credentials set by script
+export AWS_USERNAME="cloud_user"
+export AWS_PASSWORD="fLn^]1o(A39E5z)KmaIZ"
+export AWS_URL="https://611144235625.signin.aws.amazon.com/console?region=us-east-1"
+export AWS_ACCESS_KEY_ID="AKIAY4SYI7JUX2KZPDMN"
+export AWS_SECRET_ACCESS_KEY="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"
+
 ```
